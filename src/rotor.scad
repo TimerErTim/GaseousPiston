@@ -8,7 +8,7 @@ function liquid_piston_coordinates(t, size=rotor_radius) = [
     ((size * 6) / 7) * sin(t) - size / 7 * sin(((size * 6) / 7)/((size * 2) / 7) * t),
 ];
 
-function liquid_piston_points(n=$rn) = [ for (t=[0:360/n:359.999]) liquid_piston_coordinates(t)];
+function liquid_piston_points(n=$rn, size=rotor_radius) = [ for (t=[0:360/n:359.999]) liquid_piston_coordinates(t, size)];
 
 module rotor_shape() {
     linear_extrude(height=height)
@@ -17,7 +17,7 @@ module rotor_shape() {
 
 module rotor_cutout() {
     linear_extrude(height=height)
-        polygon([ for (t=[0:360/$rn:359.999]) liquid_piston_coordinates(t, rotor_radius-rotor_outer_wall_thickness)]);
+        polygon(liquid_piston_points(size=rotor_radius-rotor_outer_wall_thickness));
 }
 
 module rotor() {
