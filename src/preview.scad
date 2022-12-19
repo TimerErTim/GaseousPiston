@@ -1,2 +1,46 @@
-include <housing.scad>
+include <main.scad>
+use <housing.scad>
 use <rotor.scad>
+use <crank_shaft.scad>
+use <spinning_disk.scad>
+use <counter_weight.scad>
+
+module rotor_preview() {
+    rotate([0, 0, - $t * 360]) translate([0, rotor_radius / 7, 0])  rotate([0, 0, $t * 360 / 2 * 3]) rotor();
+}
+
+module housing_preview() {
+    housing();
+    %rotor_preview();
+    %crank_preview();
+    %counter_weight_preview();
+}
+
+module all_preview() {
+    housing();
+    rotating_preview();
+    cover_preview();
+    %disk_preview();
+}
+
+module crank_preview() {
+    rotate([0, 0, 180 - $t * 360]) crank_shaft();
+}
+
+module disk_preview() {
+    color("green", - 1)
+        rotate([0, 0, 180 - $t * 360]) spinning_disk();
+}
+
+module rotating_preview() {
+    rotor_preview();
+    %disk_preview();
+    %crank_preview();
+    %counter_weight_preview();
+}
+
+module counter_weight_preview() {
+    rotate([0, 0, 180 - $t * 360]) counter_weight();
+}
+
+housing_preview();

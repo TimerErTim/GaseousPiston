@@ -1,3 +1,4 @@
+use <util.scad>
 use <gears.scad>
 use <rotor.scad>
 include <main.scad>
@@ -23,6 +24,7 @@ module housing_basic() {
     }
 }
 
+
 module apex_seal_cutout() {
     base_offset = - (rotor_radius * 6) / 7 - stator_seal_length / 2;
 
@@ -35,23 +37,60 @@ module apex_seal_cutout() {
 }
 
 module combustion_chamber_cutout() {
-    translate([0, rotor_radius + stator_combustion_chamber_radius / 2, height / 2])
-        sphere(stator_combustion_chamber_radius);
+    translate([0, rotor_radius + combustion_chamber_radius / 2, height / 2])
+        sphere(combustion_chamber_radius);
 }
 
+module cover_screw_cutout() {
+    translate([rotor_radius / 1.5, - (rotor_radius * 6 / 7) - stator_outer_wall_thickness / 1.5, height -
+            cover_screw_length / 2 + 0.001])
+        cylinder(r = cover_screw_radius, h = cover_screw_length, center = true);
+}
+
+module outlet_cutout() {
+    translate([0, - (rotor_radius * 4) / 7 - outlet_hole_radius / 2, - bottom_thickness / 2])
+        cylinder(r = outlet_hole_radius, h = bottom_thickness * 1.002, center = true);
+}
+
+
+module housing_ring_gear() {
+    translate([0, 0, - bottom_thickness])
+        ring_gear(rotor_radius / 18, 15, bottom_thickness, 1, 30);
+}
+
+
 module housing() {
-    difference() {
-        housing_basic();
+    union() {
+        difference() {
+            housing_basic();
 
-        // Cutout apex seals
-        apex_seal_cutout();
-        rotate([0, 0, 120]) apex_seal_cutout();
-        rotate([0, 0, - 120]) apex_seal_cutout();
+            // Cutout apex seals
+            apex_seal_cutout();
+            rotate([0, 0, 120]) apex_seal_cutout();
+            rotate([0, 0, - 120]) apex_seal_cutout();
 
-        // Cutout cumbustion chambers
-        combustion_chamber_cutout();
-        rotate([0, 0, 120]) combustion_chamber_cutout();
-        rotate([0, 0, - 120]) combustion_chamber_cutout();
+            // Cutout cumbustion chambers
+            combustion_chamber_cutout();
+            rotate([0, 0, 120]) combustion_chamber_cutout();
+            rotate([0, 0, - 120]) combustion_chamber_cutout();
+
+            // Cutout screws
+            clone([1, 0, 0]) {
+                cover_screw_cutout();
+                rotate([0, 0, 120]) cover_screw_cutout();
+                rotate([0, 0, - 120]) cover_screw_cutout();
+            }
+
+            // Cutout outlet holes
+            outlet_cutout();
+            rotate([0, 0, 120]) outlet_cutout();
+            rotate([0, 0, - 120]) outlet_cutout();
+
+            // Add backing ring gear
+            hull() translate([0, 0, 0.001]) scale([0.99, 0.99, 1.002]) housing_ring_gear();
+        }
+
+        rotate([0, 0, - 6]) housing_ring_gear();
     }
 }
 
