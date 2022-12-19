@@ -2,22 +2,6 @@ use <gears.scad>
 
 
 
-
-
-function degrees(t) = 180 * t / PI;
-
-
-
-module housing_cutout() {
-    move = d;
-    
-    union() {
-        translate([0, move, 0.0]) rotor_shape();
-        rotate([0, 0, 120]) translate([0, move, 0.0]) rotor_shape();
-        rotate([0, 0, -120]) translate([0, move, 0.0]) rotor_shape();
-    }
-}
-
 module seal_cutout() {
     move = R+r+d*1.5;
     cylinder_radius = 12.5;

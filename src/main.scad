@@ -2,7 +2,7 @@
 
 $t = 0.6;
 
-$fa = 3;
+$fa = 6;
 $fs = 0.5;
 
 $rn = 360;
@@ -19,3 +19,10 @@ rotor_radius = 42;
 rotor_center_wall_thickness = 2;
 rotor_inner_wal_thickness = 3;
 rotor_outer_wall_thickness = 4;
+
+stator_outer_wall_thickness = 12.5;
+stator_seal_length = 5;
+stator_seal_width = 2;
+stator_seal_push_radius = 3;
+
+stator_combustion_chamber_radius = 12.5;
