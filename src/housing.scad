@@ -13,12 +13,16 @@ module housing_cutout() {
     }
 }
 
-module housing_basic() {
+module housing_base(thickness) {
     xy_scaling = 1 + (stator_outer_wall_thickness) / rotor_radius;
 
+    scale([xy_scaling, xy_scaling, (thickness) / height])
+        hull() housing_cutout();
+}
+
+module housing_basic() {
     difference() {
-        translate([0, 0, - bottom_thickness]) scale([xy_scaling, xy_scaling, 1 + (bottom_thickness) / height])
-            hull() housing_cutout();
+        translate([0, 0, - bottom_thickness]) housing_base(height + bottom_thickness);
 
         scale([1, 1, 1.001]) housing_cutout();
     }
@@ -31,25 +35,24 @@ module apex_seal_cutout() {
     translate([0, base_offset, height / 2])
         cube([stator_seal_width, stator_seal_length, height * 1.001], center = true);
 
-    translate([0, base_offset - stator_seal_length / 2 - stator_seal_push_radius + 1 / stator_seal_push_radius, height /
-        2])
-        cylinder(r = stator_seal_push_radius, h = height * 1.001, center = true);
+    translate([0, base_offset - stator_seal_length / 2 - stator_seal_push_radius + 1 / stator_seal_push_radius, 0])
+        polyhole(r = stator_seal_push_radius, h = height * 1.001);
 }
 
 module combustion_chamber_cutout() {
     translate([0, rotor_radius + combustion_chamber_radius / 2, height / 2])
-        sphere(combustion_chamber_radius);
+        polysphere(combustion_chamber_radius);
 }
 
 module cover_screw_cutout() {
     translate([rotor_radius / 1.5, - (rotor_radius * 6 / 7) - stator_outer_wall_thickness / 1.5, height -
             cover_screw_length / 2 + 0.001])
-        cylinder(r = cover_screw_radius, h = cover_screw_length, center = true);
+        polyhole(r = cover_screw_radius, h = cover_screw_length, center = true);
 }
 
 module outlet_cutout() {
     translate([0, - (rotor_radius * 4) / 7 - outlet_hole_radius / 2, - bottom_thickness / 2])
-        cylinder(r = outlet_hole_radius, h = bottom_thickness * 1.002, center = true);
+        polyhole(r = outlet_hole_radius, h = bottom_thickness * 1.002, center = true);
 }
 
 

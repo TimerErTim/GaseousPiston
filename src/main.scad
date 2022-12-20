@@ -11,7 +11,7 @@ height = 20;
 bottom_thickness = 3.5;
 
 
-center_hole_radius = 8.2 / 2;
+center_hole_radius = 12 / 2;
 crank_shaft_radius = 8 / 2;
 crank_shaft_length = 30;
 d_shaft_length = 20;

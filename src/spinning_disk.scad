@@ -14,8 +14,9 @@ module spinning_disk() {
         difference() {
             cylinder(r = disk_radius, h = cover_thickness);
 
+            circumscribed_r = (crank_shaft_radius) / cos(180 / max(round(4 * crank_shaft_radius), 3));
             translate([0, 0, - (height + cover_thickness + crank_shaft_length - cover_thickness) + 0.002])
-                scale([1.002, 1.002, 1]) crank_shaft();
+                scale([circumscribed_r / crank_shaft_radius, circumscribed_r / crank_shaft_radius, 1]) crank_shaft();
 
             // Cutout some forms
             disk_cutout();

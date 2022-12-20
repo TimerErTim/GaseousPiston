@@ -4,6 +4,7 @@ use <rotor.scad>
 use <crank_shaft.scad>
 use <spinning_disk.scad>
 use <counter_weight.scad>
+use <cover.scad>
 
 module rotor_preview() {
     rotate([0, 0, - $t * 360]) translate([0, rotor_radius / 7, 0])  rotate([0, 0, $t * 360 / 2 * 3]) rotor();
@@ -19,7 +20,7 @@ module housing_preview() {
 module all_preview() {
     housing();
     rotating_preview();
-    cover_preview();
+    color(undef, alpha = 0.5) cover_preview();
     %disk_preview();
 }
 
@@ -30,6 +31,10 @@ module crank_preview() {
 module disk_preview() {
     color("green", - 1)
         rotate([0, 0, 180 - $t * 360]) spinning_disk();
+}
+
+module cover_preview() {
+    cover();
 }
 
 module rotating_preview() {
@@ -43,4 +48,4 @@ module counter_weight_preview() {
     rotate([0, 0, 180 - $t * 360]) counter_weight();
 }
 
-housing_preview();
+all_preview();

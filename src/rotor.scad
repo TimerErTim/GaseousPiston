@@ -1,4 +1,5 @@
 use <gears.scad>
+use <util.scad>
 include <main.scad>
 
 
@@ -20,13 +21,23 @@ module rotor_cutout() {
         polygon(liquid_piston_points(size = rotor_radius - rotor_outer_wall_thickness));
 }
 
+
+module center_connection(t) {
+    point = liquid_piston_coordinates(t, rotor_radius - rotor_outer_wall_thickness / 2);
+    length = sqrt(point[0] * point[0] + point[1] * point[1]) * 2;
+
+    rotate([0, 0, t + 90])
+        translate([0, 0, height / 2]) cube([rotor_inner_wal_thickness, length, height], center = true);
+}
+
+
 module rotor_spur_gear() {
     translate([0, 0, - bottom_thickness])
         spur_gear(rotor_radius / 18, 10, bottom_thickness, - 10000, 30, optimized = false);
 }
 
-module rotor() {
 
+module rotor() {
     difference() {
         union() {
             difference() {
@@ -36,11 +47,14 @@ module rotor() {
             rotate([0, 0, 18]) rotor_spur_gear();
 
             // Connections to center piece
+            center_connection(0);
+            center_connection(120);
+            center_connection(- 120);
 
-            cylinder(h=height, r=center_hole_radius+rotor_center_wall_thickness);
+            cylinder(h = height, r = center_hole_radius + rotor_center_wall_thickness);
         }
 
-        cylinder(h=height*2.002, r=center_hole_radius, center=true);
+        polyhole(h = height * 2.002, r = center_hole_radius, center = true);
     }
 }
 
