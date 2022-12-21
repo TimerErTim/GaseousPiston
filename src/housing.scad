@@ -44,10 +44,10 @@ module combustion_chamber_cutout() {
         polysphere(combustion_chamber_radius);
 }
 
-module cover_screw_cutout() {
+module cover_screw_cutout(r) {
     translate([rotor_radius / 1.5, - (rotor_radius * 6 / 7) - stator_outer_wall_thickness / 1.5, height -
             cover_screw_length / 2 + 0.001])
-        polyhole(r = cover_screw_radius, h = cover_screw_length, center = true);
+        polyhole(r = r, h = cover_screw_length, center = true);
 }
 
 module outlet_cutout() {
@@ -79,9 +79,9 @@ module housing() {
 
             // Cutout screws
             clone([1, 0, 0]) {
-                cover_screw_cutout();
-                rotate([0, 0, 120]) cover_screw_cutout();
-                rotate([0, 0, - 120]) cover_screw_cutout();
+                cover_screw_cutout(cover_screw_radius);
+                rotate([0, 0, 120]) cover_screw_cutout(cover_screw_radius);
+                rotate([0, 0, - 120]) cover_screw_cutout(cover_screw_radius);
             }
 
             // Cutout outlet holes
