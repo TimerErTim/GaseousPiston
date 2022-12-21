@@ -48,4 +48,4 @@ module counter_weight_preview() {
     rotate([0, 0, 180 - $t * 360]) counter_weight();
 }
 
-all_preview();
+cover();
