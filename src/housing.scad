@@ -30,12 +30,12 @@ module housing_basic() {
 
 
 module apex_seal_cutout() {
-    base_offset = - (rotor_radius * 6) / 7 - stator_seal_length / 2;
+    base_offset = - (rotor_radius * 6) / 7 - stator_seal_depth / 2;
 
     translate([0, base_offset, height / 2])
-        cube([stator_seal_width, stator_seal_length, height * 1.001], center = true);
+        cube([stator_seal_width, stator_seal_depth, height * 1.001], center = true);
 
-    translate([0, base_offset - stator_seal_length / 2 - stator_seal_push_radius + 1 / stator_seal_push_radius, 0])
+    translate([0, base_offset - stator_seal_depth / 2 - stator_seal_push_radius + 1 / stator_seal_push_radius, 0])
         polyhole(r = stator_seal_push_radius, h = height * 1.001);
 }
 
@@ -45,13 +45,12 @@ module combustion_chamber_cutout() {
 }
 
 module cover_screw_cutout(r) {
-    translate([rotor_radius / 1.5, - (rotor_radius * 6 / 7) - stator_outer_wall_thickness / 1.5, height -
-            cover_screw_length / 2 + 0.001])
-        polyhole(r = r, h = cover_screw_length, center = true);
+    translate([rotor_radius / 1.5, - (rotor_radius * 6 / 7) - stator_outer_wall_thickness / 1.5, height + 0.001])
+        polyhole(r = r, h = height, center = true);
 }
 
 module outlet_cutout() {
-    translate([0, - (rotor_radius * 4) / 7 - outlet_hole_radius / 2, - bottom_thickness / 2])
+    translate([0, - (rotor_radius * 4) / 7 - rotor_radius * 1 / 18 - outlet_hole_radius / 2, - bottom_thickness / 2])
         polyhole(r = outlet_hole_radius, h = bottom_thickness * 1.002, center = true);
 }
 
