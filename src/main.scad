@@ -11,7 +11,7 @@ height = 20;
 bottom_thickness = 3.5;
 
 
-center_hole_radius = 12.35 / 2;
+center_hole_radius = 12.30 / 2;
 crank_shaft_radius = 8 / 2;
 crank_shaft_length = 30;
 d_shaft_length = 20;
@@ -35,9 +35,10 @@ combustion_chamber_radius = height / 2.25;
 outlet_hole_radius = 2.5;
 
 inlet_circle_radius = rotor_radius * 4 / 7;
-pneumatic_inlet_radius = 10 / 2;
+pneumatic_inlet_radius = 5 / 2;
 
 cover_thickness = 3.5;
+cover_height = 2;
 cover_screw_radius = 2.75 / 2;
 cover_screw_clearance = 0.5;
 cover_screw_length = 30;

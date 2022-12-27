@@ -13,7 +13,7 @@ inlet_length = rotor_radius * 8 / 7 + stator_outer_wall_thickness - inlet_radius
 
 module pneumatic_inlet() {
     intersection() {
-        translate([- pneumatic_inlet_radius - cover_thickness, 0, cover_thickness])
+        translate([- pneumatic_inlet_radius - cover_thickness, 0, cover_height])
             cube([pneumatic_inlet_radius * 2 + cover_thickness * 2, inlet_length * 2, pneumatic_inlet_radius * 2 +
                 cover_thickness]);
 
@@ -26,7 +26,7 @@ module pneumatic_inlet() {
 }
 
 module pneumatic_inlet_cutout() {
-    translate([0, 0, cover_thickness - 0.002]) union() {
+    translate([0, 0, cover_height - 0.002]) union() {
         intersection() {
             translate([- pneumatic_inlet_radius, 0, 0]) cube([pneumatic_inlet_radius * 2, inlet_length,
                     pneumatic_inlet_radius * 2]);
@@ -53,7 +53,7 @@ module cover() {
         difference() {
             union() {
                 difference() {
-                    housing_base(cover_thickness);
+                    housing_base(cover_height);
 
                     // Cutout screws
                     translate([0, 0, - height / 2 - 0.002]) clone([1, 0, 0]) {
@@ -63,13 +63,14 @@ module cover() {
                     }
                 }
 
-                translate([0, 0, cover_thickness])
+                translate([0, 0, cover_height])
                     cylinder(r = max(cutout_radius + cover_thickness, center_hole_radius + cover_thickness), h =
-                        cover_thickness + 1.5);
+                                cover_thickness * 2 + 1.5 - cover_height);
 
                 // Add inlet ring
-                translate([0, 0, cover_thickness - 0.001])
-                    cylinder_tube(height = cover_thickness, radius = inlet_radius, wall = inlet_width);
+                translate([0, 0, cover_height - 0.001])
+                    cylinder_tube(height = cover_thickness * 2 - cover_height, radius = inlet_radius, wall = inlet_width
+                    );
 
                 // Add pneumatic inlet
                 pneumatic_inlet();
