@@ -1,6 +1,6 @@
-use <gears.scad>
-use <util.scad>
-include <main.scad>
+use <../../lib/gears.scad>
+use <../util.scad>
+include <../main.scad>
 use <MCAD/2Dshapes.scad>
 use <MCAD/regular_shapes.scad>
 

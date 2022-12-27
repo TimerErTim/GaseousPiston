@@ -1,4 +1,4 @@
-include <main.scad>
+include <../main.scad>
 use <crank_shaft.scad>
 
 module base_connector_shape() {

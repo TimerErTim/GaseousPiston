@@ -1,5 +1,5 @@
-include <main.scad>
-use <util.scad>
+include <../main.scad>
+use <../util.scad>
 
 module cover_nut() {
     nut_height = cover_screw_length - height - cover_thickness + 1.2;

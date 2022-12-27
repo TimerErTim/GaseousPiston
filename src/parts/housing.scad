@@ -1,7 +1,7 @@
-use <util.scad>
-use <gears.scad>
+use <../util.scad>
+use <../../lib/gears.scad>
 use <rotor.scad>
-include <main.scad>
+include <../main.scad>
 
 module housing_cutout() {
     move = rotor_radius / 7;

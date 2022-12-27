@@ -1,12 +1,12 @@
 include <main.scad>
-use <housing.scad>
-use <rotor.scad>
-use <crank_shaft.scad>
-use <spinning_disk.scad>
-use <counter_weight.scad>
-use <cover.scad>
-use <nut.scad>
-use <seal.scad>
+use <parts/housing.scad>
+use <parts/rotor.scad>
+use <parts/crank_shaft.scad>
+use <parts/spinning_disk.scad>
+use <parts/counter_weight.scad>
+use <parts/cover.scad>
+use <parts/nut.scad>
+use <parts/seal.scad>
 
 module rotor_preview() {
     rotate([0, 0, - $t * 720]) translate([0, rotor_radius / 7, 0])  rotate([0, 0, $t * 720 / 2 * 3]) rotor();

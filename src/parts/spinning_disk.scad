@@ -1,4 +1,4 @@
-include <main.scad>
+include <../main.scad>
 use <crank_shaft.scad>
 use <MCAD/regular_shapes.scad>
 

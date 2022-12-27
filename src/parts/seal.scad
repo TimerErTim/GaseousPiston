@@ -1,4 +1,4 @@
-include <main.scad>
+include <../main.scad>
 use <MCAD/regular_shapes.scad>
 
 module seal() {

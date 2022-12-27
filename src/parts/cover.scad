@@ -1,6 +1,6 @@
-include <main.scad>
+include <../main.scad>
 use <housing.scad>
-use <util.scad>
+use <../util.scad>
 use <MCAD/regular_shapes.scad>
 
 cutout_radius = rotor_radius / 7 + crank_shaft_radius + 0.5;

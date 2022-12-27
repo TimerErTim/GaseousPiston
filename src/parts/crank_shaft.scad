@@ -1,4 +1,4 @@
-include <main.scad>
+include <../main.scad>
 
 module crank_shaft() {
     difference() {
